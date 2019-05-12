@@ -49,7 +49,7 @@ public class ConnectServer {
 //        실제 Request를 생성, 서버로 떠날 준비.
 
         Request request = new Request.Builder()
-                .url(BASE_URL+"/auth")
+                .url(BASE_URL + "/auth")
                 .post(requestBody)
                 .build();
 
@@ -81,7 +81,6 @@ public class ConnectServer {
         });
 
 
-
     }
 
 
@@ -93,7 +92,7 @@ public class ConnectServer {
 
 //        URL 설정 => 목적지 설정
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL+"/v2/me_info").newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL + "/v2/me_info").newBuilder();
 
 //        ※ GET, DELETE메쏘드는 필요 파리미터를 URL에 담아줘야함.
 //         이 담는과정을 쉽게 하려고 urlBuilder를 사용
@@ -140,7 +139,6 @@ public class ConnectServer {
 
             }
         });
-
 
 
     }

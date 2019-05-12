@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import org.json.JSONException;
@@ -30,6 +31,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
         act.signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +112,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void setValues() {
 
+        String savedUserId = ContextUtil.getUserInputId(mContext);
+
+        act.loginIdEdt.setText(savedUserId);
+
+
+        String savedToken = ContextUtil.getUserToken(mContext);
+        Log.d("저장된토큰값", String.format("토큰값 : %s", savedToken));
     }
 
     @Override
