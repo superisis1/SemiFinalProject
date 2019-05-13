@@ -45,7 +45,6 @@ public class MainActivity extends BaseActivity {
 
                 act.changeFragOneBtn.setText("현재 선택됨");
                 act.changeFragTwoBtn.setText("2번 프래그먼트");
-                act.changeFragThreeBtn.setText("3번 프래그먼트");
             }
         });
 
@@ -59,20 +58,6 @@ public class MainActivity extends BaseActivity {
 
                 act.changeFragOneBtn.setText("1번 프래그먼트");
                 act.changeFragTwoBtn.setText("현재 선택됨");
-                act.changeFragThreeBtn.setText("3번 프래그먼트");
-            }
-        });
-
-        /* 3번 프래그먼트 버튼 클릭 */
-        act.changeFragThreeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                act.viewPager.setCurrentItem(2);
-
-                act.changeFragOneBtn.setText("1번 프래그먼트");
-                act.changeFragTwoBtn.setText("2번 프래그먼트");
-                act.changeFragThreeBtn.setText("현재 선택됨");
             }
         });
 
@@ -80,7 +65,8 @@ public class MainActivity extends BaseActivity {
         act.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
-            public void onPageScrolled(int i, float v, int i1) {}
+            public void onPageScrolled(int i, float v, int i1) {
+            }
 
             @Override
             public void onPageSelected(int i) {
@@ -88,22 +74,15 @@ public class MainActivity extends BaseActivity {
                 if (i == 0) {
                     act.changeFragOneBtn.setText("현재 선택됨");
                     act.changeFragTwoBtn.setText("2번 프래그먼트");
-                    act.changeFragThreeBtn.setText("3번 프래그먼트");
-                }
-                else if (i == 1){
+                } else if (i == 1) {
                     act.changeFragOneBtn.setText("1번 프래그먼트");
                     act.changeFragTwoBtn.setText("현재 선택됨");
-                    act.changeFragThreeBtn.setText("3번 프래그먼트");
-                }
-                else if (i == 2){
-                    act.changeFragOneBtn.setText("1번 프래그먼트");
-                    act.changeFragTwoBtn.setText("2번 프래그먼트");
-                    act.changeFragThreeBtn.setText("현재 선택됨");
                 }
             }
 
             @Override
-            public void onPageScrollStateChanged(int i) {}
+            public void onPageScrollStateChanged(int i) {
+            }
         });
 
     }
@@ -113,9 +92,9 @@ public class MainActivity extends BaseActivity {
 
         /** 프래그먼트 */
 
-        act.viewPager.setOffscreenPageLimit(4); // 프래그먼의 갯수와 맞춰주자!
+        act.viewPager.setOffscreenPageLimit(3); // 프래그먼의 갯수와 맞춰주자!
 
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), 3);
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), 2);
         act.viewPager.setAdapter(pagerAdapter);
     }
 

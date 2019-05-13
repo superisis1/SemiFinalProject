@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import kr.insungjung.semifinalproject.fragments.FragmentOne;
-import kr.insungjung.semifinalproject.fragments.FragmentThree;
 import kr.insungjung.semifinalproject.fragments.FragmentTwo;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -37,13 +36,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             }
 
             fr = frag2;
-        }
-        else if (position == 2) {
-            if (frag3 == null) {
-                frag3 = new FragmentThree();
-            }
-
-            fr = frag3;
         }
 
         return fr;
