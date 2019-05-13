@@ -62,56 +62,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        /** 프래그먼트 */
-
-        /* 1번 프래그먼트 버튼 클릭 *//*
-        act.changeFragOneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                act.viewPager.setCurrentItem(0);
-
-                act.changeFragOneBtn.setText("현재 선택됨");
-                act.changeFragTwoBtn.setText("2번 프래그먼트");
-            }
-        });
-
-        *//* 2번 프래그먼트 버튼 클릭 *//*
-        act.changeFragTwoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                act.viewPager.setCurrentItem(1);
-
-                act.changeFragOneBtn.setText("1번 프래그먼트");
-                act.changeFragTwoBtn.setText("현재 선택됨");
-            }
-        });
-
-        *//* 뷰페이저 *//*
-        act.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-                if (i == 0) {
-                    act.changeFragOneBtn.setText("현재 선택됨");
-                    act.changeFragTwoBtn.setText("2번 프래그먼트");
-                } else if (i == 1) {
-                    act.changeFragOneBtn.setText("1번 프래그먼트");
-                    act.changeFragTwoBtn.setText("현재 선택됨");
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });*/
     }
 
     @Override
