@@ -63,7 +63,7 @@ public class ConnectServer {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseContent = response.body().string();
 
-                Log.d("서버 응답 내용", responseContent);
+                Log.d("서버 응답 내용 1", responseContent);
 
                 try {
 //                    받아온 응답을 JSON 객체로 변환
@@ -121,7 +121,7 @@ public class ConnectServer {
 
                 String responseContent = response.body().string();
 
-                Log.d("서버 응답 내용", responseContent);
+                Log.d("서버 응답 내용 2", responseContent);
 
                 try {
 //                    받아온 응답을 JSON 객체로 변환

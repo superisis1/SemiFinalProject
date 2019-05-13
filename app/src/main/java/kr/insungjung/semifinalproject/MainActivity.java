@@ -1,21 +1,27 @@
 package kr.insungjung.semifinalproject;
 
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import kr.insungjung.semifinalproject.adapters.PagerAdapter;
 import kr.insungjung.semifinalproject.databinding.ActivityMainBinding;
+import kr.insungjung.semifinalproject.fragments.FragmentOne;
 import kr.insungjung.semifinalproject.utils.ConnectServer;
 
 public class MainActivity extends BaseActivity {
 
     ActivityMainBinding act;
+    PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,110 +30,98 @@ public class MainActivity extends BaseActivity {
         bindViews();
         setupEvents();
         setValues();
-
     }
 
     @Override
     public void setupEvents() {
+
+        /** 프래그먼트 */
+
+        /* 1번 프래그먼트 버튼 클릭 */
+        act.changeFragOneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                act.viewPager.setCurrentItem(0);
+
+                act.changeFragOneBtn.setText("현재 선택됨");
+                act.changeFragTwoBtn.setText("2번 프래그먼트");
+                act.changeFragThreeBtn.setText("3번 프래그먼트");
+            }
+        });
+
+        /* 2번 프래그먼트 버튼 클릭 */
+        act.changeFragTwoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                2번 화면 버튼을 누름 => 2번째 페이지를 보여주자.
+                act.viewPager.setCurrentItem(1);
+
+                act.changeFragOneBtn.setText("1번 프래그먼트");
+                act.changeFragTwoBtn.setText("현재 선택됨");
+                act.changeFragThreeBtn.setText("3번 프래그먼트");
+            }
+        });
+
+        /* 3번 프래그먼트 버튼 클릭 */
+        act.changeFragThreeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                act.viewPager.setCurrentItem(2);
+
+                act.changeFragOneBtn.setText("1번 프래그먼트");
+                act.changeFragTwoBtn.setText("2번 프래그먼트");
+                act.changeFragThreeBtn.setText("현재 선택됨");
+            }
+        });
+
+        /* 뷰페이저 */
+        act.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {}
+
+            @Override
+            public void onPageSelected(int i) {
+
+                if (i == 0) {
+                    act.changeFragOneBtn.setText("현재 선택됨");
+                    act.changeFragTwoBtn.setText("2번 프래그먼트");
+                    act.changeFragThreeBtn.setText("3번 프래그먼트");
+                }
+                else if (i == 1){
+                    act.changeFragOneBtn.setText("1번 프래그먼트");
+                    act.changeFragTwoBtn.setText("현재 선택됨");
+                    act.changeFragThreeBtn.setText("3번 프래그먼트");
+                }
+                else if (i == 2){
+                    act.changeFragOneBtn.setText("1번 프래그먼트");
+                    act.changeFragTwoBtn.setText("2번 프래그먼트");
+                    act.changeFragThreeBtn.setText("현재 선택됨");
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {}
+        });
 
     }
 
     @Override
     public void setValues() {
 
-//        로그인에 성공한 사람의 토큰을 받아오기.
+        /** 프래그먼트 */
 
-                String token = getIntent().getStringExtra("userToken");
+        act.viewPager.setOffscreenPageLimit(4); // 프래그먼의 갯수와 맞춰주자!
 
-        Log.d("사용자토큰값", token);
-
-//        받아온 토큰을 가지고 /v2/me_info API 호출, 사용자 데이터 표시
-
-        ConnectServer.getRequestMeInfo(mContext, token, new ConnectServer.JsonResponseHandler() {
-            @Override
-            public void onResponse(JSONObject json) {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        try {
-                            int code = json.getInt("code");
-
-                            if (code == 200) {
-//                                정상적으로 데이터 수신
-
-                                JSONObject data = json.getJSONObject("data");
-
-                                JSONObject user = data.getJSONObject("user");
-
-//                                프사 경로
-                                String profile_image = user.getString("profile_image");
-//                                사용자 이름
-                                String name = user.getString("name");
-//                                보유 잔고
-                                int balance = user.getInt("balance");
-
-//                                은행 로고를 따기 전에 bank_code JSONObject 부터
-                                JSONObject bank_code = user.getJSONObject("bank_code");
-
-//                                은행 정보 안에 있는 로고 경로
-
-                                String logo = bank_code.getString("logo");
-//                                 은행 이름
-                                String bankName = bank_code.getString("name");
-
-                                String billing_account = user.getString("billing_account");
-
-
-//                                프로필 이미지 출력
-                                Glide.with(mContext).load(profile_image).into(act.profileImg);
-
-//                                사용자 이름 출력
-
-                                act.userNameTxt.setText(name);
-
-//                                사용자 보유 잔고를 ,찍는 양식으로 출력
-                                act.userBalnceTxt.setText(String.format("%,d P", balance));
-
-//                                  은행 로고 출력
-
-                                Glide.with(mContext).load(logo).into(act.bankLogoImg);
-
-//                                은행 이름 출력
-
-                                act.bankNameTxt.setText(bankName);
-
-//                                사용자 은행 계좌 출력
-
-                                act.bankAccountTxt.setText(billing_account);
-
-
-
-
-
-
-
-                            }
-                            else {
-//                                비정상 상태
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                });
-
-            }
-        });
-
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), 3);
+        act.viewPager.setAdapter(pagerAdapter);
     }
 
     @Override
     public void bindViews() {
+
         act = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
 }
