@@ -14,19 +14,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/changeFragOneBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1번 프래그먼트" />
+            <android.support.design.widget.TabLayout
 
-            <Button
-                android:id="@+id/changeFragTwoBtn"
-                android:layout_width="0dp"
+                android:id="@+id/tabBar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2번 프래그먼트" />
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabTextColor="@color/colorPrimaryDark"
+                app:tabSelectedTextColor="#FFFFFF" />
 
         </LinearLayout>
 

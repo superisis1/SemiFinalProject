@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -51,7 +50,7 @@ public class BankListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // 처음엔 setupEvents의 onClicklistener 안에 들어 있었지만, 생명주기를 고려하여 이 위치로 옮김!!!
+        // 처음엔 setupEvents 의 onClickListener 안에 들어 있었지만, 생명주기를 고려하여 이 위치로 옮김!!!
         ConnectServer.getRequestInfoBank(getActivity(), new ConnectServer.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
@@ -61,10 +60,14 @@ public class BankListFragment extends Fragment {
                 try {
                     int code = json.getInt("code");
 
+                    /* https://stackoverflow.com/questions/16425146/runonuithread-in-fragment
+                     * Fragment 의 경우 그냥 runOnUiThread 만 쓰면 안되고, 앞에 getActivity 를 붙여야 함 */
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if (code == 200) {
+
+                                /* Fragment 에서는 context 인자에 getActivity() 를 넣어야 함*/
                                 Toast.makeText(getActivity(), "정상적으로 데이터 가져옴", Toast.LENGTH_SHORT).show();
 
                                 try {

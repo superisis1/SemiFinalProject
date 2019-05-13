@@ -27,7 +27,6 @@ public class BankAdapter extends ArrayAdapter<Bank> {
         mContext = context;
         mList = list;
         inf = LayoutInflater.from(mContext);
-
     }
 
     @Override
