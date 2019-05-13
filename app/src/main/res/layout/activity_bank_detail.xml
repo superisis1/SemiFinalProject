@@ -1,46 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".BankDetailActivity">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/logoImg"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        tools:src="@mipmap/ic_launcher" />
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        tools:context=".BankDetailActivity">
 
-        <TextView
-            android:id="@+id/bankNameTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="은행 이름"
-            android:textSize="20sp"
-            android:textColor="#000000"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/logoImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            app:civ_border_color="#D5D5D5"
+            app:civ_border_width="1dp"
+            tools:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/bankCodeTxt"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="001"
-            android:textSize="16sp" />
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bankNameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="은행 이름"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/bankCodeTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="001"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
 </layout>
 
 

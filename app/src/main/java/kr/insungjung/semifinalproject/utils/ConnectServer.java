@@ -28,7 +28,6 @@ public class ConnectServer {
         void onResponse(JSONObject json);
     }
 
-
     /**
      * 사용자 로그인 정보 - 아이디, 비번
      * @param context
@@ -43,14 +42,12 @@ public class ConnectServer {
 
 //        POST 메쏘드는 urlBuilder가 아니라, RequestBody를 Build.
 //        formData에 파라미터를 첨부하는 코드.
-
         RequestBody requestBody = new FormBody.Builder()
                 .add("user_id", user_id)
                 .add("password", password)
                 .build();
 
 //        실제 Request를 생성, 서버로 떠날 준비.
-
         Request request = new Request.Builder()
                 .url(BASE_URL + "/auth")
                 .post(requestBody)
@@ -66,7 +63,7 @@ public class ConnectServer {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseContent = response.body().string();
 
-                Log.d("서버 응답 내용 1", responseContent);
+                Log.d("서버응답내용(로그인정보)", responseContent);
 
                 try {
 //                    받아온 응답을 JSON 객체로 변환
@@ -96,11 +93,9 @@ public class ConnectServer {
     public static void getRequestMeInfo(Context context, String token, final JsonResponseHandler handler) {
 
 //        서버 - 클라이언트 (앱)
-
         OkHttpClient client = new OkHttpClient();
 
 //        URL 설정 => 목적지 설정
-
         HttpUrl.Builder urlBuilder = HttpUrl.parse(BASE_URL + "/v2/me_info").newBuilder();
 
 //        ※ GET, DELETE메쏘드는 필요 파리미터를 URL에 담아줘야함.
@@ -127,7 +122,7 @@ public class ConnectServer {
 
                 String responseContent = response.body().string();
 
-                Log.d("서버 응답 내용 2", responseContent);
+                Log.d("서버응답내용(사용자상세정보)", responseContent);
 
                 try {
 //                    받아온 응답을 JSON 객체로 변환

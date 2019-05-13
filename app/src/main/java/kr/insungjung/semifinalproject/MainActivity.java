@@ -62,8 +62,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-
-
     }
 
     @Override
@@ -83,4 +81,5 @@ public class MainActivity extends BaseActivity {
 
         act = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
+
 }
