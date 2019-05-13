@@ -9,22 +9,23 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:theme="@style/TabTheme">
 
             <android.support.design.widget.TabLayout
-
                 android:id="@+id/tabBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:elevation="16dp"
                 app:tabGravity="fill"
                 app:tabMode="fixed"
-                app:tabTextColor="@color/colorPrimaryDark"
-                app:tabSelectedTextColor="#FFFFFF" />
+                app:tabSelectedTextColor="#FFFFFF"
+                app:tabTextColor="@color/colorPrimaryDark" />
 
-        </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"

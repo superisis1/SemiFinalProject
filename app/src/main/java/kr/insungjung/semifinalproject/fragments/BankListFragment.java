@@ -33,12 +33,12 @@ public class BankListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bank_list, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bank_list, container, false);
 
         bankAdapter = new BankAdapter(getActivity(), bankList);
         binding.bankListView.setAdapter(bankAdapter);
 
-       return binding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
@@ -111,8 +111,6 @@ public class BankListFragment extends Fragment {
             }
         });
     }
-
-
 
 }
 
