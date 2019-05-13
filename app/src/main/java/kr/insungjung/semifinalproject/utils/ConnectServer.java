@@ -181,7 +181,7 @@ public class ConnectServer {
 
                 String responseContent = response.body().string();
 
-                Log.d("서버 응답 내용", responseContent);
+                Log.d("서버응답내용(은행리스트)", responseContent);
 
                 try {
                     // 받아온 응답을 JSON 객체로 변환
@@ -193,16 +193,13 @@ public class ConnectServer {
                         handler.onResponse(json);
                     }
                 } catch (JSONException e) {
+
                     e.printStackTrace();
                 }
-
             }
         });
 
-
-
     }
-
 
 }
 
