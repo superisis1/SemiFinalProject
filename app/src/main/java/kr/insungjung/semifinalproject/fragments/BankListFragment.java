@@ -1,22 +1,27 @@
 package kr.insungjung.semifinalproject.fragments;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.insungjung.semifinalproject.BankDetailActivity;
 import kr.insungjung.semifinalproject.R;
 import kr.insungjung.semifinalproject.adapters.BankAdapter;
 import kr.insungjung.semifinalproject.databinding.FragmentBankListBinding;
@@ -37,6 +42,21 @@ public class BankListFragment extends Fragment {
 
         bankAdapter = new BankAdapter(getActivity(), bankList);
         binding.bankListView.setAdapter(bankAdapter);
+
+        /**
+         * 아이템 클릭 이벤트
+         */
+        binding.bankListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Bank clickedBankData = bankList.get(position);
+
+                Intent intent = new Intent(getActivity(), BankDetailActivity.class);
+                intent.putExtra("은행정보", clickedBankData);
+                startActivity(intent);
+            }
+        });
 
         return binding.getRoot();
     }
@@ -110,6 +130,8 @@ public class BankListFragment extends Fragment {
                 }
             }
         });
+
+
     }
 
 }

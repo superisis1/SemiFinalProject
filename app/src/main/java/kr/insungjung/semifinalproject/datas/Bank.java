@@ -3,7 +3,9 @@ package kr.insungjung.semifinalproject.datas;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Bank {
+import java.io.Serializable;
+
+public class Bank implements Serializable {
 
     public int id;
     public String code;
