@@ -28,6 +28,14 @@ public class ConnectServer {
         void onResponse(JSONObject json);
     }
 
+
+    /**
+     * 사용자 로그인 정보 - 아이디, 비번
+     * @param context
+     * @param user_id
+     * @param password
+     * @param handler
+     */
     public static void postRequestSignIn(Context context, String user_id, String password, final JsonResponseHandler handler) {
 
 //        클라이언트 역할임은 무슨 메쏘드이든 동일. 항상 복붙
@@ -79,6 +87,12 @@ public class ConnectServer {
     }
 
 
+    /**
+     * 사용자 상세정보
+     * @param context
+     * @param token
+     * @param handler
+     */
     public static void getRequestMeInfo(Context context, String token, final JsonResponseHandler handler) {
 
 //        서버 - 클라이언트 (앱)
@@ -95,16 +109,13 @@ public class ConnectServer {
 //        실제로 서버에 접근하는 완성된 url
         String requestURL = urlBuilder.build().toString();
 
-
 //        완성된 url로 접근하는 request를 생성.
         Request request = new Request.Builder()
                 .header("X-Http-Token", token)
                 .url(requestURL) // post등의 메쏘드를 안쓰면, 기본적으로 GET
                 .build();
 
-
 //        만들어진 Request를 실제로 서버에 요청.
-
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -134,8 +145,11 @@ public class ConnectServer {
         });
     }
 
+
     /**
-     *  3. 뱅크 리스트
+     * 은행 리스트
+     * @param context
+     * @param handler
      */
 
     public static void getRequestInfoBank(Context context, /* 필요한파라미터용 변수들 */ final JsonResponseHandler handler) {

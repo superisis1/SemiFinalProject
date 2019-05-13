@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import kr.insungjung.semifinalproject.fragments.FragmentOne;
+import kr.insungjung.semifinalproject.fragments.BankListFragment;
 import kr.insungjung.semifinalproject.fragments.FragmentTwo;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -25,7 +25,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         if (position == 0) {
             if (frag1 == null) {
-                frag1 = new FragmentOne();
+                frag1 = new BankListFragment();
             }
 
             fr = frag1;

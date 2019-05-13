@@ -1,26 +1,17 @@
 package kr.insungjung.semifinalproject;
 
 import android.databinding.DataBindingUtil;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-
-import com.bumptech.glide.Glide;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import kr.insungjung.semifinalproject.adapters.PagerAdapter;
 import kr.insungjung.semifinalproject.databinding.ActivityMainBinding;
-import kr.insungjung.semifinalproject.fragments.FragmentOne;
-import kr.insungjung.semifinalproject.utils.ConnectServer;
 
 public class MainActivity extends BaseActivity {
 
     ActivityMainBinding act;
+
     PagerAdapter pagerAdapter;
 
     @Override
@@ -84,13 +75,12 @@ public class MainActivity extends BaseActivity {
             public void onPageScrollStateChanged(int i) {
             }
         });
-
     }
 
     @Override
     public void setValues() {
 
-        /** 프래그먼트 */
+        /** 프래그먼트 - 뷰페이저 */
 
         act.viewPager.setOffscreenPageLimit(3); // 프래그먼의 갯수와 맞춰주자!
 
