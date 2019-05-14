@@ -37,6 +37,7 @@ public class MainActivity extends BaseActivity {
         mTabBar = act.tabBar;
         mTabBar.addTab(mTabBar.newTab().setText("은행목록"));
         mTabBar.addTab(mTabBar.newTab().setText("공지사항"));
+        mTabBar.addTab(mTabBar.newTab().setText("회원정보"));
 
         mViewPager = act.viewPager;
 
@@ -70,15 +71,14 @@ public class MainActivity extends BaseActivity {
         /**
          * 뷰페이저
          */
-        act.viewPager.setOffscreenPageLimit(3); // 프래그먼의 갯수와 맞춰주자!
+        act.viewPager.setOffscreenPageLimit(4); // 프래그먼의 갯수와 맞춰주자!
 
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), 2);
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), 3);
         act.viewPager.setAdapter(mPagerAdapter);
     }
 
     @Override
     public void bindViews() {
-
         act = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
 

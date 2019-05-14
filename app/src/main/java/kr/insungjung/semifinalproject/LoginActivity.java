@@ -5,11 +5,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.insungjung.semifinalproject.databinding.ActivityLoginBinding;
+import kr.insungjung.semifinalproject.fragments.UserInfoFragment;
 import kr.insungjung.semifinalproject.utils.ConnectServer;
 import kr.insungjung.semifinalproject.utils.ContextUtil;
 
@@ -49,27 +52,23 @@ public class LoginActivity extends BaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
                                 try {
-
                                     int code = json.getInt("code");
 
                                     if (code == 200) { // 로그인 성공!
-
                                         JSONObject data = json.getJSONObject("data");
                                         String token = data.getString("token");
+                                        boolean isChecked = true;
 
                                         if (act.autoLoginCheckBox.isChecked()) {  // 자동로그인을 하려고 한다. 사용자가 표시
-
                                             ContextUtil.setUserToken(mContext, token); // 로그인성공 토큰값을 SharedPreferences 에 저장
                                         }
-
                                         Intent intent = new Intent(mContext, MainActivity.class);
                                         intent.putExtra("userToken", token);
                                         startActivity(intent);
                                         finish();
-                                    } else { // 로그인 실패. 왜 실패했는지 AlertDialog
-
+                                    }
+                                    else { // 로그인 실패. 왜 실패했는지 AlertDialog
                                         AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                                         alert.setTitle("로그인 실패 알림");
                                         alert.setMessage(json.getString("message"));
@@ -78,7 +77,6 @@ public class LoginActivity extends BaseActivity {
                                     }
 
                                 } catch (JSONException e) {
-
                                     e.printStackTrace();
                                 }
                             }

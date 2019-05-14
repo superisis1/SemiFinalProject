@@ -49,7 +49,6 @@ public class BankListFragment extends Fragment {
         binding.bankListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Bank clickedBankData = bankList.get(position);
 
                 Intent intent = new Intent(getActivity(), BankDetailActivity.class);
@@ -57,7 +56,6 @@ public class BankListFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return binding.getRoot();
     }
 
@@ -75,7 +73,6 @@ public class BankListFragment extends Fragment {
             @Override
             public void onResponse(JSONObject json) {
                 /*실제로 서버에서 돌아온 응답을 메인 액티비티에서 처리*/
-
                 // 먼저 큰덩어리부터 불러온다. (무조건 try/catch 예외처리)
                 try {
                     int code = json.getInt("code");
@@ -100,15 +97,11 @@ public class BankListFragment extends Fragment {
                                     for (int i = 0; i < banks.length(); i++) {
                                         JSONObject bank = banks.getJSONObject(i);
 
-                                               /* String name = bank.getString("name");
-                                                Log.d("은행이름", name);*/
-
+                                        /* String name = bank.getString("name");
+                                           Log.d("은행이름", name);*/
                                         Bank bankObj = Bank.getBankFromJson(bank);
-
                                         bankList.add(bankObj);
-
                                         bankAdapter.notifyDataSetChanged();
-
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -131,9 +124,7 @@ public class BankListFragment extends Fragment {
             }
         });
 
-
     }
-
 }
 
 
