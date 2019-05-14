@@ -7,9 +7,11 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import kr.insungjung.semifinalproject.databinding.ActivityLoginBinding;
 import kr.insungjung.semifinalproject.fragments.UserInfoFragment;
@@ -32,6 +34,18 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        TextView inputId = act.loginIdEdt;
+        TextView inputPw = act.loginPwEdt;
+
+        // sharedPreferences 에 들어 있는 값이 있으면 체크박스에 체크하고, 없으면 체크하지 말아라
+        if (ContextUtil.getUserToken(mContext) != null) {
+            act.autoLoginCheckBox.setChecked(true);
+            inputId.setText(ContextUtil.getUserInputId(mContext));
+            inputPw.setText(ContextUtil.getUserInputPw(mContext));
+        } else {
+            act.autoLoginCheckBox.setChecked(false);
+        }
+
         act.signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +56,7 @@ public class LoginActivity extends BaseActivity {
 
                 // 1.2 - 입력받은 ID를 SharedPreferences 에 저장.
                 ContextUtil.setUserInputId(mContext, inputId);
+                ContextUtil.setUserInputPw(mContext, inputPw);
 
                 // 2. 받아온 아이디와 비번이 정말로 올바른 회원지? 검사
                 //    아이디/비번이 모두 동일한 사람이 회원 명부에 있는지? 검사.
@@ -58,17 +73,16 @@ public class LoginActivity extends BaseActivity {
                                     if (code == 200) { // 로그인 성공!
                                         JSONObject data = json.getJSONObject("data");
                                         String token = data.getString("token");
-                                        boolean isChecked = true;
 
                                         if (act.autoLoginCheckBox.isChecked()) {  // 자동로그인을 하려고 한다. 사용자가 표시
                                             ContextUtil.setUserToken(mContext, token); // 로그인성공 토큰값을 SharedPreferences 에 저장
                                         }
+
                                         Intent intent = new Intent(mContext, MainActivity.class);
                                         intent.putExtra("userToken", token);
                                         startActivity(intent);
                                         finish();
-                                    }
-                                    else { // 로그인 실패. 왜 실패했는지 AlertDialog
+                                    } else { // 로그인 실패. 왜 실패했는지 AlertDialog
                                         AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                                         alert.setTitle("로그인 실패 알림");
                                         alert.setMessage(json.getString("message"));

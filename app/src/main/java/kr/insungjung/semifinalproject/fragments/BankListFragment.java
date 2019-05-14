@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,7 @@ public class BankListFragment extends Fragment {
         ConnectServer.getRequestInfoBank(getActivity(), new ConnectServer.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
-                /*실제로 서버에서 돌아온 응답을 메인 액티비티에서 처리*/
+                /* 실제로 서버에서 돌아온 응답을 메인 액티비티에서 처리 */
                 // 먼저 큰덩어리부터 불러온다. (무조건 try/catch 예외처리)
                 try {
                     int code = json.getInt("code");
@@ -84,11 +85,11 @@ public class BankListFragment extends Fragment {
                         public void run() {
                             if (code == 200) {
 
-                                /* Fragment 에서는 context 인자에 getActivity() 를 넣어야 함*/
-                                Toast.makeText(getActivity(), "정상적으로 데이터 가져옴", Toast.LENGTH_SHORT).show();
+                                // Fragment 에서는 context 인자에 getActivity() 를 넣어야 함
+                                /*Toast.makeText(getActivity(), "정상적으로 데이터 가져옴", Toast.LENGTH_SHORT).show();*/
 
                                 try {
-                                    JSONObject data = json.getJSONObject("data");
+                                    JSONObject data = json.getJSONObject("data"); // 서버에 저장된 키값으로 불러온다.
                                     JSONArray banks = data.getJSONArray("banks");
 
                                     // 누적으로 쌓이지 않도록 미리 한번 비워주는 코드

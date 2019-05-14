@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import kr.insungjung.semifinalproject.fragments.BankListFragment;
-import kr.insungjung.semifinalproject.fragments.FragmentTwo;
+import kr.insungjung.semifinalproject.fragments.NoticeFragment;
 import kr.insungjung.semifinalproject.fragments.UserInfoFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
@@ -32,7 +32,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         }
         else if (position == 1) {
             if (frag2 == null) {
-                frag2 = new FragmentTwo();
+                frag2 = new NoticeFragment();
             }
             fr = frag2;
         }
