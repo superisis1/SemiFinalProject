@@ -38,7 +38,7 @@ public class LoginActivity extends BaseActivity {
         TextView inputPw = act.loginPwEdt;
 
         // sharedPreferences 에 들어 있는 값이 있으면 체크박스에 체크하고, 없으면 체크하지 말아라
-        if (ContextUtil.getUserToken(mContext) != null) {
+        if (ContextUtil.getAutoLogin(mContext) == true) {
             act.autoLoginCheckBox.setChecked(true);
             inputId.setText(ContextUtil.getUserInputId(mContext));
             inputPw.setText(ContextUtil.getUserInputPw(mContext));
@@ -73,9 +73,12 @@ public class LoginActivity extends BaseActivity {
                                     if (code == 200) { // 로그인 성공!
                                         JSONObject data = json.getJSONObject("data");
                                         String token = data.getString("token");
+                                        ContextUtil.setUserToken(mContext, token);
 
                                         if (act.autoLoginCheckBox.isChecked()) {  // 자동로그인을 하려고 한다. 사용자가 표시
-                                            ContextUtil.setUserToken(mContext, token); // 로그인성공 토큰값을 SharedPreferences 에 저장
+                                            ContextUtil.setAutoLogin(mContext, true);// 로그인성공 토큰값을 SharedPreferences 에 저장
+                                        } else if (act.autoLoginCheckBox.isChecked() == false) {
+                                            ContextUtil.setAutoLogin(mContext, false);
                                         }
 
                                         Intent intent = new Intent(mContext, MainActivity.class);

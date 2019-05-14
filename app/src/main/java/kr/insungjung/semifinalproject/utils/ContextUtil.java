@@ -12,6 +12,7 @@ public class ContextUtil {
     private static final String USER_INPUT_ID = "USER_INPUT_ID";
     private static final String USER_INPUT_PW = "USER_INPUT_PW";
     private static final String USER_TOKEN = "USER_TOKEN";
+    private static final String AUTO_LOGIN = "AUTO_LOGIN";
 
     /**
      * 아이디 저장
@@ -60,6 +61,21 @@ public class ContextUtil {
     public static String getUserToken(Context context) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
         return pref.getString(USER_TOKEN, "");
+    }
+
+    /**
+     * 자동 로그인 체크값
+     * @param context
+     * @param autoLogin
+     */
+    public static void setAutoLogin(Context context, boolean autoLogin) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        pref.edit().putBoolean(AUTO_LOGIN, autoLogin).apply();
+    }
+
+    public static Boolean getAutoLogin(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        return pref.getBoolean(AUTO_LOGIN, false);
     }
 
 }
