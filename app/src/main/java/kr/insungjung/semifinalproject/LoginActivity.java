@@ -4,17 +4,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import kr.insungjung.semifinalproject.databinding.ActivityLoginBinding;
-import kr.insungjung.semifinalproject.fragments.UserInfoFragment;
 import kr.insungjung.semifinalproject.utils.ConnectServer;
 import kr.insungjung.semifinalproject.utils.ContextUtil;
 
@@ -34,10 +31,11 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        // 자동로그인
         TextView inputId = act.loginIdEdt;
         TextView inputPw = act.loginPwEdt;
 
-        // sharedPreferences 에 들어 있는 값이 있으면 체크박스에 체크하고, 없으면 체크하지 말아라
+        // 자동로그인 - sharedPreferences 에 들어 있는 값이 있으면 체크박스에 체크하고, 없으면 체크하지 말아라
         if (ContextUtil.getAutoLogin(mContext) == true) {
             act.autoLoginCheckBox.setChecked(true);
             inputId.setText(ContextUtil.getUserInputId(mContext));
@@ -69,14 +67,15 @@ public class LoginActivity extends BaseActivity {
                             public void run() {
                                 try {
                                     int code = json.getInt("code");
+                                    Log.d("로그인시 받아온 코드", Integer.toString(code));
 
                                     if (code == 200) { // 로그인 성공!
                                         JSONObject data = json.getJSONObject("data");
                                         String token = data.getString("token");
                                         ContextUtil.setUserToken(mContext, token);
 
-                                        if (act.autoLoginCheckBox.isChecked()) {  // 자동로그인을 하려고 한다. 사용자가 표시
-                                            ContextUtil.setAutoLogin(mContext, true);// 로그인성공 토큰값을 SharedPreferences 에 저장
+                                        if (act.autoLoginCheckBox.isChecked()) {  // 자동로그인을 하려고 한다.
+                                            ContextUtil.setAutoLogin(mContext, true);
                                         } else if (act.autoLoginCheckBox.isChecked() == false) {
                                             ContextUtil.setAutoLogin(mContext, false);
                                         }
@@ -85,6 +84,7 @@ public class LoginActivity extends BaseActivity {
                                         intent.putExtra("userToken", token);
                                         startActivity(intent);
                                         finish();
+
                                     } else { // 로그인 실패. 왜 실패했는지 AlertDialog
                                         AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                                         alert.setTitle("로그인 실패 알림");
@@ -117,3 +117,10 @@ public class LoginActivity extends BaseActivity {
         act = DataBindingUtil.setContentView(this, R.layout.activity_login);
     }
 }
+
+
+
+
+
+
+
