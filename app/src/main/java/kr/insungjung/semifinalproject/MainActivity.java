@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import kr.insungjung.semifinalproject.adapters.PagerAdapter;
 import kr.insungjung.semifinalproject.databinding.ActivityMainBinding;
@@ -13,8 +12,7 @@ public class MainActivity extends BaseActivity {
 
     ActivityMainBinding act;
 
-    PagerAdapter mPagerAdapter;
-
+    private PagerAdapter mPagerAdapter;
     private TabLayout mTabBar;
     private ViewPager mViewPager;
 
@@ -41,6 +39,7 @@ public class MainActivity extends BaseActivity {
 
         /* 뷰페이저 */
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), mTabBar.getTabCount());
+
         mViewPager = act.viewPager;
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPagerAdapter);

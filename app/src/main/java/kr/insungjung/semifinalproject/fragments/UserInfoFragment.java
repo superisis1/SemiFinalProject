@@ -30,10 +30,8 @@ public class UserInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_info, container, false);
 
-
-        // 로그인에 성공한 사람의 토큰을 받아오기.
+        // ContextUtil(SharedPreferences) 에 저장된 토큰을 받아오기 (로그인 성공한 사람만 가능)
         String token = ContextUtil.getUserToken(getActivity());
-
         Log.d("사용자토큰값", token);
 
         // 받아온 토큰을 가지고 /v2/me_info API 호출, 사용자 데이터 표시
@@ -47,40 +45,37 @@ public class UserInfoFragment extends Fragment {
                             int code = json.getInt("code");
 
                             if (code == 200) {
-//                                정상적으로 데이터 수신
-                                JSONObject data = json.getJSONObject("data");
-                                JSONObject user = data.getJSONObject("user");
+                                /* 1. 데이터 parsing */
 
-                                // 프사 경로
+                                // 1) "data"
+                                JSONObject data = json.getJSONObject("data");
+
+                                // 1-1) "data-user"
+                                JSONObject user = data.getJSONObject("user");
                                 String profile_image = user.getString("profile_image");
-                                // 사용자 이름
                                 String name = user.getString("name");
-                                // 보유 잔고
                                 int balance = user.getInt("balance");
 
-                                // 은행 로고를 따기 전에 bank_code JSONObject 부터
-                                JSONObject bank_code = user.getJSONObject("bank_code");
-                                // 은행 정보 안에 있는 로고 경로
+                                // 1-2) "data-user-bank_code"
+                                JSONObject bank_code = user.getJSONObject("bank_code"); // bank_code 가 user 하위 카테고리이기 때문에
                                 String logo = bank_code.getString("logo");
-                                // 은행 이름
                                 String bankName = bank_code.getString("name");
                                 String billing_account = user.getString("billing_account");
 
-                                // 프로필 이미지 출력
+                                /* 2. 뷰바인더에 set */
+
+                                // 1-1) "data-user"
                                 Glide.with(getActivity()).load(profile_image).into(binding.profileImg);
-                                // 사용자 이름 출력
                                 binding.userNameTxt.setText(name);
-                                // 사용자 보유 잔고를 ,찍는 양식으로 출력
                                 binding.userBalnceTxt.setText(String.format("%,d P", balance));
-                                // 은행 로고 출력
+
+                                // 2-1) "data-user-bank"
                                 Glide.with(getActivity()).load(logo).into(binding.bankLogoImg);
-                                // 은행 이름 출력
                                 binding.bankNameTxt.setText(bankName);
-                                // 사용자 은행 계좌 출력
                                 binding.bankAccountTxt.setText(billing_account);
                             }
                             else {
-                                // 비정상 상태
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
