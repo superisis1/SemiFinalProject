@@ -3,11 +3,9 @@ package kr.insungjung.semifinalproject.fragments;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +54,7 @@ public class BankListFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return binding.getRoot();
     }
 
@@ -69,7 +67,6 @@ public class BankListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        // 처음엔 setupEvents 의 onClickListener 안에 들어 있었지만, 생명주기를 고려하여 이 위치로 옮김!!!
         ConnectServer.getRequestInfoBank(getActivity(), new ConnectServer.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
@@ -100,7 +97,7 @@ public class BankListFragment extends Fragment {
 
                                         /* String name = bank.getString("name");
                                            Log.d("은행이름", name);*/
-                                        Bank bankObj = Bank.getBankFromJson(bank);
+                                        Bank bankObj = Bank.getBankFromJson(bank); // bank 데이터로부터 세부정보를 불러와 저장하는 부분
                                         bankList.add(bankObj);
                                         bankAdapter.notifyDataSetChanged();
                                     }

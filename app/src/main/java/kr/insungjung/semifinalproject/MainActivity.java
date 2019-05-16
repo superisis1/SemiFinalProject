@@ -21,7 +21,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         bindViews();
         setupEvents();
         setValues();
@@ -30,19 +29,20 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
-        /**
-         * 탭 레이아웃
-         * (참고) https://re-build.tistory.com/25
-         */
+    }
+
+    @Override
+    public void setValues() {
+        /* 탭 레이아웃 (참고 - https://re-build.tistory.com/25) */
         mTabBar = act.tabBar;
         mTabBar.addTab(mTabBar.newTab().setText("은행목록"));
         mTabBar.addTab(mTabBar.newTab().setText("공지사항"));
         mTabBar.addTab(mTabBar.newTab().setText("회원정보"));
 
-        mViewPager = act.viewPager;
-
+        /* 뷰페이저 */
         mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), mTabBar.getTabCount());
-
+        mViewPager = act.viewPager;
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabBar));
 
@@ -62,19 +62,6 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-
-    }
-
-    @Override
-    public void setValues() {
-
-        /**
-         * 뷰페이저
-         */
-        act.viewPager.setOffscreenPageLimit(4); // 프래그먼의 갯수와 맞춰주자!
-
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager(), 3);
-        act.viewPager.setAdapter(mPagerAdapter);
     }
 
     @Override
